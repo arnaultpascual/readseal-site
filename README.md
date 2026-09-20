@@ -14,8 +14,8 @@ request: the pages load nothing but themselves.
 
 ## Before publishing
 
-1. **Fill the three placeholders** in `privacy.html`: `[[LEGAL FORM]]`, `[[POSTAL ADDRESS]]`,
-   `[[REGISTRATION NUMBER]]`. They appear twice, in "Who we are" and in "Contact".
+1. **Fill the last placeholder** in `privacy.html`: `[[CODE POSTAL ET VILLE]]`, in "Who we are" and in
+   "Contact". The legal form, the street and the SIRET are in.
 2. **Have the privacy policy read by a lawyer**, along with the question of whether a data processing addendum
    is needed at all: the app holds account identifiers, yet everything stays inside the customer's Atlassian
    site and OwlWorks has no access to it.
