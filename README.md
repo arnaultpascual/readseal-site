@@ -19,17 +19,17 @@ request: the pages load nothing but themselves.
 2. **Have the privacy policy read by a lawyer**, along with the question of whether a data processing addendum
    is needed at all: the app holds account identifiers, yet everything stays inside the customer's Atlassian
    site and OwlWorks has no access to it.
-3. **Create the two mailboxes**: `support@owlworks.dev` and `security@owlworks.dev`, or point them at
-   `contact@owlworks.dev`.
+3. **One address answers everything**, `contact@owlworks.dev`: that is what these pages say, so nothing here
+   points at a mailbox that does not exist.
 
 ## Publishing
 
-```bash
-gh repo create readseal-site --public --source=. --remote=origin --push
-```
+GitHub Desktop: File, Add local repository, this folder, then Publish repository with **"Keep this code
+private" unticked** — GitHub Pages does not serve a private repository on a free plan.
 
-Then in the repository: Settings, Pages, Source "Deploy from a branch", branch `main`, folder `/ (root)`.
-The pages appear at `https://<account>.github.io/readseal-site/` within a minute or two.
+Then on github.com: Settings, in the left column under "Code and automation", Pages; Source "Deploy from a
+branch", branch `main`, folder `/ (root)`. The pages appear at
+`https://arnaultpascual.github.io/readseal-site/` within a minute or two.
 
 A custom domain later (`readseal.owlworks.dev`, say) only takes a `CNAME` file here and one DNS record; the
 Marketplace URLs would then be changed once, in the listing.
