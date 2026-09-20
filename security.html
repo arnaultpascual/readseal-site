@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReadSeal security</title>
+<meta name="description" content="What ReadSeal stores, where it runs, which Confluence permissions it asks for, and what it never does.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <img src="assets/readseal-logo-144.png" alt="">
+    <span class="name"><a href="index.html" style="color:inherit;text-decoration:none">ReadSeal</a></span>
+    <nav>
+      <a href="docs.html">Documentation</a>
+      <a href="security.html" aria-current="page">Security</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>Security</h1>
+  <p class="lede">Where ReadSeal runs, what it keeps, and what it never does.</p>
+
+  <h2>It runs on Atlassian, and nowhere else</h2>
+  <p>ReadSeal is a Forge app. Its code runs on Atlassian's infrastructure and it declares no external host, which
+    is what Atlassian's "Runs on Atlassian" programme attests at each deployment. It sends no email, no message to
+    Slack or Teams, and no analytics. No data leaves your Atlassian site.</p>
+  <p>Everything it stores goes to Forge hosted storage, which follows your site's data residency.</p>
+
+  <h2>What it stores</h2>
+  <table>
+    <tr><th>Data</th><th>Why</th></tr>
+    <tr><td>Campaign: its name, the message and attestation text a manager wrote, space, dates, time zone, options, the account id of its creator</td><td>The request itself</td></tr>
+    <tr><td>Request and confirmation: account id, page, version confirmed, date, own due date, a "no access" flag, a fingerprint of the attestation text</td><td>The evidence</td></tr>
+    <tr><td>The counter under a page title: the figures and the campaign name, as a page property</td><td>What readers see</td></tr>
+    <tr><td>Register: page ids, campaign names and states</td><td>Finding the evidence again</td></tr>
+  </table>
+  <p><strong>No name and no email address is stored.</strong> Names are read from Confluence at the moment a
+    campaign page is written, kept in memory for ten minutes at most to spare the API budget, and never written to
+    storage.</p>
+  <p>Logs hold counts, HTTP statuses and error codes. No account id, no page title, no email address.</p>
+
+  <h2>Which permissions it asks for</h2>
+  <p>Every Confluence permission ReadSeal requests is used by a call it actually makes: reading pages and their
+    versions, writing its own campaign pages and the counters, reading the members of the groups you assign,
+    posting the reminder comments, uploading the CSV, and checking whether each recipient can open each page. It
+    does not ask for the broad content-write permission that deleting or trashing pages would require.</p>
+  <p>Pages are listed through your own Confluence session when you build a campaign, so a manager can only ever
+    target pages they are allowed to see.</p>
+
+  <h2>Who can do what</h2>
+  <ul>
+    <li>Confluence administrators, and the groups they designate, manage campaigns. Nothing is open by default.</li>
+    <li>An administrator can narrow what each manager sees to their own campaigns, or to those of their team.</li>
+    <li>Every check runs again on the server: hiding a screen is not a permission.</li>
+    <li>A confirmation is refused for an anonymous visitor, for a page whose version the app cannot read, and when
+      the page changed while it was being read.</li>
+  </ul>
+
+  <h2>Keeping and erasing</h2>
+  <ul>
+    <li>An administrator chooses how long closed campaigns are kept in the app: always, or 1, 3, 5 or 10 years.
+      Their pages in Confluence are never touched by that.</li>
+    <li>Every account ReadSeal holds data about is declared weekly to Atlassian's personal data reporting API. An
+      account reported closed is erased from the app, everywhere it was named.</li>
+    <li>Campaigns cannot be deleted from the app: closing one freezes its record.</li>
+  </ul>
+
+  <h2>Reporting a vulnerability</h2>
+  <p>Write to <a href="mailto:security@owlworks.dev">security@owlworks.dev</a> with enough detail to reproduce the
+    issue. We answer within two business days, keep you posted until it is fixed, and credit you if you want to be.
+    Please do not test against other people's Confluence sites.</p>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    ReadSeal is made by OwlWorks.
+    <a href="privacy.html">Privacy</a> &middot;
+    <a href="security.html">Security</a> &middot;
+    <a href="support.html">Support</a>
+  </div>
+</footer>
+</body>
+</html>
